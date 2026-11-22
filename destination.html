@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Destination Details - Travel Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-globe"></i>
+          <span>Travel Explorer</span>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#destinations" class="active">Destinations</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contactSupport">Contact Us</a></li>
+          <li><a href="#bookings">Bookings</a></li>
+          <li><a href="favorites.html" class="favorites-link"><i class="fas fa-heart"></i> Favorites</a></li>
+        </ul>
+        <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
+        <div class="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+
+    <div id="pageLoader" class="page-loader">
+      <div class="spinner"></div>
+      <p>Loading destination details...</p>
+    </div>
+
+    <section class="destination-hero" id="destinationHero">
+      <div class="hero-overlay"></div>
+      <div class="destination-hero-content">
+        <button class="back-btn" onclick="window.history.back()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <h1 class="destination-title" id="destinationTitle">Loading...</h1>
+        <button class="favorite-btn-hero" id="favoriteBtn" title="Add to favorites"><i class="far fa-heart"></i></button>
+      </div>
+    </section>
+
+    <section class="weather-section">
+      <div class="container">
+        <div class="weather-card" id="weatherCard">
+          <div id="weatherLoader" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Fetching weather data...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="destination-content">
+      <div class="container">
+        <div class="content-section">
+          <h2 class="section-title"><i class="fas fa-map-marked-alt"></i> Look around</h2>
+          <div class="places-grid" id="placesGrid"></div>
+        </div>
+
+        <div class="content-section">
+          <div class="map-preview">
+            <h3><i class="fas fa-map-marker-alt"></i> View on Map</h3>
+            <div id="map" class="map-box"></div>
+            <a href="#" id="mapLink" class="map-btn" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i> Open in Google Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="content-section" id="reviews">
+          <h2 class="section-title"><i class="fas fa-star"></i> User Reviews</h2>
+          <div class="add-review-section">
+            <h3>Share Your Experience</h3>
+            <form class="review-form" id="reviewForm">
+              <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="reviewName" placeholder="Enter your name" required />
+              </div>
+              <div class="form-group">
+                <label>Rating</label>
+                <div class="star-rating" id="starRating">
+                  <i class="far fa-star" data-rating="1"></i>
+                  <i class="far fa-star" data-rating="2"></i>
+                  <i class="far fa-star" data-rating="3"></i>
+                  <i class="far fa-star" data-rating="4"></i>
+                  <i class="far fa-star" data-rating="5"></i>
+                </div>
+                <input type="hidden" id="ratingValue" value="5" />
+              </div>
+              <div class="form-group">
+                <label>Your Review</label>
+                <textarea id="reviewText" rows="4" placeholder="Share your thoughts..." required></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
+          </div>
+
+          <div class="reviews-list" id="reviewsList"></div>
+        </div>
+
+        <div class="content-section" id="bookings">
+          <h2 class="section-title"><i class="fas fa-calendar-check"></i> Book Your Trip</h2>
+          <form class="booking-form" id="bookingForm">
+            <div class="form-row">
+              <div class="form-group"><label>Full Name</label><input type="text" id="bookingName" required /></div>
+              <div class="form-group"><label>Email</label><input type="email" id="bookingEmail" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Destination</label><input type="text" id="bookingCity" readonly /></div>
+              <div class="form-group"><label>People</label><input type="number" id="bookingPeople" min="1" value="2" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Check-in</label><input type="date" id="bookingCheckin" required /></div>
+              <div class="form-group"><label>Check-out</label><input type="date" id="bookingCheckout" required /></div>
+            </div>
+            <div class="form-group"><label>Special Requests</label><textarea id="bookingNotes" rows="3"></textarea></div>
+            <button type="submit" class="submit-btn">Request Booking</button>
+          </form>
+        </div>
+
+        <div class="content-section" id="contactSupport">
+          <h2 class="section-title"><i class="fas fa-headset"></i> Contact</h2>
+          <div class="support-section">
+            <div class="support-card"><i class="fas fa-envelope"></i><h3>Email</h3><p><a href="mailto:abhishekgupta28042004@gmail.com">abhishekgupta28042004@gmail.com</a></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer"><div class="container"><div class="footer-content"><div class="footer-section"><h3><i class="fas fa-globe"></i> Travel Explorer</h3><p>A small trip-planning project by Abhishek.</p></div></div><div class="footer-bottom"><p>&copy; 2026 Travel Explorer. All rights reserved.</p></div></div></footer>
+
+    <button class="scroll-to-top" id="scrollToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="api-config.js"></script>
+    <script src="common.js"></script>
+    <script src="destination.js"></script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Favorites - Travel Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo"><i class="fas fa-globe"></i><span>Travel Explorer</span></div>
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#destinations">Destinations</a></li>
+          <li><a href="index.html#contact">Contact Us</a></li>
+          <li><a href="favorites.html" class="favorites-link active"><i class="fas fa-heart"></i> Favorites</a></li>
+        </ul>
+        <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </nav>
+
+    <section class="favorites-header">
+      <div class="container">
+        <h1><i class="fas fa-heart"></i> My Favorite Destinations</h1>
+        <p>Your personally curated collection of dream destinations</p>
+      </div>
+    </section>
+
+    <section class="favorites-section">
+      <div class="container">
+        <div class="favorites-actions">
+          <div class="favorites-count"><span id="favoritesCount">0</span> destinations saved</div>
+          <button class="clear-all-btn" id="clearAllBtn"><i class="fas fa-trash"></i> Clear All</button>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <i class="fas fa-heart-broken"></i>
+          <h2>No favorites yet</h2>
+          <p>Start exploring destinations and add them to your favorites by clicking the heart icon!</p>
+          <a href="index.html" class="explore-btn"><i class="fas fa-compass"></i> Explore Destinations</a>
+        </div>
+
+        <div class="destinations-grid" id="favoritesGrid"></div>
+      </div>
+    </section>
+
+    <footer class="footer"><div class="container"><div class="footer-content"><div class="footer-section"><h3><i class="fas fa-globe"></i> Travel Explorer</h3><p>A small trip-planning project by Abhishek.</p></div></div><div class="footer-bottom"><p>&copy; 2026 Travel Explorer. All rights reserved.</p></div></div></footer>
+
+    <button class="scroll-to-top" id="scrollToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="api-config.js"></script>
+    <script src="common.js"></script>
+    <script src="favorites.js"></script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-globe"></i>
+          <span>Travel Explorer</span>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#map">Map</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="favorites.html" class="favorites-link"><i class="fas fa-heart"></i> Favorites</a></li>
+        </ul>
+        <button class="dark-mode-toggle" id="darkModeToggle" aria-pressed="false">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title fade-in">Where to next?</h1>
+        <p class="hero-subtitle fade-in-delay">Pick a city, check the weather, save the ones you like.</p>
+
+        <!-- Search Bar -->
+        <div class="search-container fade-in-delay-2">
+          <input
+            type="text"
+            id="citySearch"
+            class="search-input"
+            placeholder="Search any city"
+          />
+          <button class="search-btn" id="searchBtn">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </div>
+
+        <!-- Popular Cities Quick Access -->
+        <div class="quick-access fade-in-delay-3">
+          <p>Popular destinations:</p>
+          <div class="city-chips">
+            <button class="chip" data-city="Paris">Paris</button>
+            <button class="chip" data-city="Tokyo">Tokyo</button>
+            <button class="chip" data-city="New York">New York</button>
+            <button class="chip" data-city="Sydney">Sydney</button>
+            <button class="chip" data-city="London">London</button>
+            <button class="chip" data-city="Dubai">Dubai</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Results Section -->
+    <section id="searchResults" class="search-results hidden">
+      <div class="container">
+        <h2>Search Results</h2>
+        <div id="searchResultsContent"></div>
+      </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations-section">
+      <div class="container">
+        <h2 class="section-title">Places to start</h2>
+        <p class="section-subtitle">Pick one, or search for your own city above.</p>
+
+        <div id="loadingSpinner" class="loading-spinner hidden">
+          <div class="spinner"></div>
+          <p>Loading amazing destinations...</p>
+        </div>
+
+        <div class="destinations-grid" id="destinationsGrid"></div>
+      </div>
+    </section>
+
+    <section id="map" class="destinations-section" style="background:var(--bg-secondary)">
+      <div class="container">
+        <h2 class="section-title">On the map</h2>
+        <p class="section-subtitle">Click a marker to open the destination.</p>
+        <div id="homeMap" class="map-box"></div>
+      </div>
+    </section>
+
+    <footer class="footer" id="contact">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3><i class="fas fa-globe"></i> Travel Explorer</h3>
+            <p>A small trip-planning project by Abhishek.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#destinations">Destinations</a></li>
+              <li><a href="favorites.html">Favorites</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Contact</h4>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:abhishekgupta28042004@gmail.com">abhishekgupta28042004@gmail.com</a></p>
+          </div>
+          <div class="footer-section">
+            <h4>Find me</h4>
+            <div class="social-links"><a href="https://github.com/abhishekg104" aria-label="GitHub"><i class="fab fa-github"></i></a></div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Travel Explorer. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    
+    <button class="scroll-to-top" id="scrollToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="api-config.js"></script>
+    <script src="common.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
