@@ -100,6 +100,10 @@ function createCard(d) {
 function renderAuthNav() {
   const menu = document.querySelector('.nav-menu'); if (!menu) return;
   const add = html => { const li = document.createElement('li'); li.innerHTML = html; menu.appendChild(li); return li; };
+  menu.querySelectorAll('a').forEach(a => { if (a.textContent.trim() === 'Contact Us') a.href = 'contact.html'; });
+  const have = t => [...menu.querySelectorAll('a')].some(a => a.textContent.trim() === t);
+  if (!have('About')) add('<a href="about.html">About</a>');
+  if (!have('Travel Tips')) add('<a href="tips.html">Travel Tips</a>');
   if (currentUser) {
     add('<a href="dashboard.html">Dashboard</a>');
     add('<a href="#">Logout</a>').firstChild.onclick = async e => { e.preventDefault(); await sb.auth.signOut(); location.href = 'index.html'; };
