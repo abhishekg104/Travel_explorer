@@ -320,7 +320,7 @@ button {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .destinations-section {
