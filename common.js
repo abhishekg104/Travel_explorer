@@ -99,15 +99,36 @@ function createCard(d) {
 // ---- page chrome + auth ----
 function renderAuthNav() {
   const menu = document.querySelector('.nav-menu'); if (!menu) return;
+  if (!document.getElementById('navStyle')) {
+    const st = document.createElement('style'); st.id = 'navStyle';
+    st.textContent = `
+      .nav-menu { gap: 26px; }
+      @media (min-width: 769px) { .nav-menu { flex: 1; margin-left: 40px; } .nav-menu .nav-user-first { margin-left: auto; } }
+      @media (max-width: 1150px) and (min-width: 769px) { .nav-menu { gap: 16px; margin-left: 20px; } .nav-menu a { font-size: 14px; } }
+      .nav-menu .nav-user a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--secondary-color); white-space: nowrap; }
+      .nav-menu .nav-user a::after { display: none; }
+      .nav-menu .nav-user a:hover { background: var(--secondary-color); color: #fff; }
+      .nav-menu .nav-user.primary a { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+      @media (max-width: 768px) { .nav-menu .nav-user { margin-top: 8px; } }`;
+    document.head.appendChild(st);
+  }
   const add = html => { const li = document.createElement('li'); li.innerHTML = html; menu.appendChild(li); return li; };
+  const find = t => [...menu.querySelectorAll('li')].find(li => li.textContent.trim() === t);
   menu.querySelectorAll('a').forEach(a => { if (a.textContent.trim() === 'Contact Us') a.href = 'contact.html'; });
-  const have = t => [...menu.querySelectorAll('a')].some(a => a.textContent.trim() === t);
-  if (!have('About')) add('<a href="about.html">About</a>');
-  if (!have('Travel Tips')) add('<a href="tips.html">Travel Tips</a>');
+  if (!find('About')) add('<a href="about.html">About</a>');
+  if (!find('Travel Tips')) add('<a href="tips.html">Travel Tips</a>');
+  const user = [];
+  const fav = find('Favorites'); if (fav) { fav.innerHTML = '<a href="favorites.html" class="favorites-link"><i class="fas fa-heart"></i> Favorites</a>'; user.push(fav); }
   if (currentUser) {
-    add('<a href="dashboard.html">Dashboard</a>');
-    add('<a href="#">Logout</a>').firstChild.onclick = async e => { e.preventDefault(); await sb.auth.signOut(); location.href = 'index.html'; };
-  } else add(`<a href="${loginUrl()}">Login</a>`);
+    user.push(add('<a href="dashboard.html"><i class="fas fa-user"></i> Dashboard</a>'));
+    const out = add('<a href="#"><i class="fas fa-right-from-bracket"></i> Logout</a>');
+    out.firstChild.onclick = async e => { e.preventDefault(); await sb.auth.signOut(); location.href = 'index.html'; };
+    user.push(out);
+  } else { const l = add(`<a href="${loginUrl()}"><i class="fas fa-right-to-bracket"></i> Login</a>`); l.classList.add('primary'); user.push(l); }
+  // order: Home, Destinations, Map, Travel Tips, About, Contact Us | Favorites, Login/Dashboard
+  ['Home', 'Destinations', 'Map', 'Travel Tips', 'About', 'Contact Us'].forEach(t => { const li = find(t); if (li) menu.appendChild(li); });
+  user.forEach(li => { li.classList.add('nav-user'); menu.appendChild(li); });
+  if (user[0]) user[0].classList.add('nav-user-first');
 }
 async function initCommon() {
   const dm = document.getElementById('darkModeToggle'), icon = dm && dm.querySelector('i');
